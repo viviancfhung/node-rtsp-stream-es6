@@ -12,6 +12,8 @@ class VideoStream extends EventEmitter {
     this.width = options.width
     this.height = options.height
     this.port = options.port
+	this.bitRate=options.bitRate
+	this.frameRate=options.frameRate
     this.stream = void 0
     this.stream2Socket()
   }
@@ -52,7 +54,7 @@ class VideoStream extends EventEmitter {
   }
 
   start() {
-    this.mpeg1Muxer = new Mpeg1Muxer({ url: this.url })
+    this.mpeg1Muxer = new Mpeg1Muxer({ url: this.url, bitRate:this.bitRate, frameRate:this.frameRate})
     this.mpeg1Muxer.on('mpeg1data', (data) => { return this.emit('camdata', data) })
 
     let gettingInputData = false
